@@ -78,3 +78,44 @@ let matrix = new Matrix(2, 2, (rowNum, colNum) => `value ${rowNum},${colNum}`);
 for (let value of matrix) {
     console.log(value);
 }
+console.log();
+
+//------------------------------------------------------------------------------
+// Наследование
+//------------------------------------------------------------------------------
+
+// JavaScript позволяет создавать отношение вида наследование:
+class SymmetricMatrix extends Matrix {
+    constructor(size, filler = (rowNum, colNum) => undefined) {
+        // Вызов конструктора базового класса.
+        super(size, size, (rowNum, colNum) => {
+            if (rowNum > colNum)
+                return filler(rowNum, colNum);
+            else
+                return filler(colNum, rowNum);
+        });
+    }
+
+    set(rowNum, colNum, value) {
+        // Обращение к методу базового класса.
+        super.set(rowNum, colNum, value);
+        if (rowNum != colNum)
+            super.set(colNum, rowNum, value);
+    }
+}
+
+let symMatrix = new SymmetricMatrix(3, (rowNum, colNum) => `value ${rowNum},${colNum}`);
+console.log(symMatrix.get(0, 2));
+console.log(symMatrix.get(2, 0));
+console.log();
+
+//------------------------------------------------------------------------------
+// Оператор instanceOf
+//------------------------------------------------------------------------------
+
+// С помощью оператора instanceOf можно узнать является ли некий объект
+// экземпляром определённого класса:
+console.log(new SymmetricMatrix(1) instanceof SymmetricMatrix); // true
+console.log(new SymmetricMatrix(1) instanceof Matrix);          // true
+console.log(new Matrix(2, 2) instanceof SymmetricMatrix);       // false
+console.log([1] instanceof Array);                              // true
