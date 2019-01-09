@@ -146,3 +146,14 @@ window.addEventListener("scroll", () => {
     let maxHeight = document.body.scrollHeight - innerHeight;
     bar.style.width = `${(pageYOffset / maxHeight) * 100}%`;
 });
+
+//------------------------------------------------------------------------------
+// События фокуса
+//------------------------------------------------------------------------------
+
+// Когда объект получает фокус, то браузер генерит событие "focus". При потере
+// фокуса генерится событие "blue".
+let inputName = document.getElementById("firstName");
+let help_paragraph = document.getElementById("help");
+inputName.addEventListener("focus", () => { help_paragraph.textContent = "Focused"; });
+inputName.addEventListener("blur", () => { help_paragraph.textContent = "Not focused"; });
